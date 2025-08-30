@@ -1,0 +1,10 @@
+# requirements.txt (separate file)
+fastapi==0.104.1
+uvicorn[standard]==0.24.0
+python-multipart==0.0.6
+pillow>=10.0.1,<11.0.0
+opencv-python==4.8.1.78
+numpy>=2.1.0,<2.2.0
+scikit-learn>=1.5.0,<1.6.0
+pydantic>=2.7.0,<3.0.0
+pydantic-settings>=2.0.3,<3.0.0
