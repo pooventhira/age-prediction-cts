@@ -1,0 +1,180 @@
+/* Global Reset */
+body, html {
+  margin: 0;
+  padding: 0;
+  font-family: 'Inter', sans-serif;
+  background-color: #f9fafb; /* matches Tailwind's bg-gray-50 */
+}
+
+/* Navbar */
+nav {
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
+}
+
+nav a {
+  font-weight: 500;
+  transition: color 0.2s ease-in-out;
+}
+
+nav a:hover {
+  color: #e0f2fe; /* lighter teal hover */
+}
+
+/* Login Page */
+.login-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 80vh;
+}
+
+.login-card {
+  background: white;
+  padding: 2rem;
+  border-radius: 1rem;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+  width: 24rem;
+  max-width: 90%;
+  border: 1px solid #e5e7eb;
+}
+
+.login-card h2 {
+  color: #0f766e; /* teal-700 */
+  margin-bottom: 1.5rem;
+  text-align: center;
+}
+
+.login-card input {
+  width: 100%;
+  margin-bottom: 1rem;
+  border: 1px solid #d1d5db;
+  border-radius: 0.5rem;
+  padding: 0.5rem;
+  transition: border-color 0.2s ease-in-out, box-shadow 0.2s;
+}
+
+.login-card input:focus {
+  outline: none;
+  border-color: #0d9488; /* teal-600 */
+  box-shadow: 0 0 0 2px rgba(13, 148, 136, 0.25);
+}
+
+.login-card button {
+  width: 100%;
+  background-color: #0d9488;
+  color: white;
+  padding: 0.75rem;
+  border-radius: 0.5rem;
+  font-weight: 600;
+  transition: background-color 0.2s ease-in-out;
+}
+
+.login-card button:hover {
+  background-color: #0f766e; /* teal-700 */
+}
+
+/* Home Page Sections */
+.section-card {
+  background: white;
+  border-radius: 1rem;
+  padding: 1.5rem;
+  box-shadow: 0 8px 16px rgba(0,0,0,0.08);
+  border: 1px solid #e5e7eb;
+}
+
+.section-card h2 {
+  color: #0f766e;
+  margin-bottom: 1rem;
+  font-weight: bold;
+}
+
+/* Upload Preview */
+.upload-preview {
+  border: 2px solid #93c5fd;
+  border-radius: 0.75rem;
+  overflow: hidden;
+  margin-top: 1rem;
+}
+
+.upload-preview img {
+  width: 100%;
+  max-height: 16rem;
+  object-fit: contain;
+  border-radius: 0.5rem;
+}
+
+/* Buttons */
+.btn {
+  padding: 0.5rem 1.25rem;
+  border-radius: 0.5rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: transform 0.2s, background-color 0.2s;
+}
+
+.btn:active {
+  transform: scale(0.95);
+}
+
+.btn-teal {
+  background-color: #0d9488;
+  color: white;
+}
+
+.btn-teal:hover {
+  background-color: #0f766e;
+}
+
+.btn-red {
+  background-color: #dc2626;
+  color: white;
+}
+
+.btn-red:hover {
+  background-color: #b91c1c;
+}
+
+/* History Page */
+.history-container {
+  padding: 1.5rem;
+}
+
+.history-container h2 {
+  color: #0f766e;
+  font-size: 1.5rem;
+  margin-bottom: 1rem;
+}
+
+.history-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+  gap: 1rem;
+}
+
+.history-card {
+  background: white;
+  padding: 0.75rem;
+  border-radius: 0.75rem;
+  border: 1px solid #d1d5db;
+  text-align: center;
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.history-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 6px 14px rgba(0, 0, 0, 0.15);
+}
+
+.history-card img {
+  width: 80px;
+  height: 80px;
+  object-fit: cover;
+  margin: 0 auto 0.5rem;
+  border-radius: 0.5rem;
+}
+
+.history-card p {
+  margin: 0;
+  font-size: 0.85rem;
+  color: #374151;
+}
