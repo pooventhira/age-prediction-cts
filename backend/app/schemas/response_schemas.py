@@ -8,7 +8,7 @@ class PredictionResponse(BaseModel):
     message: str = "Age prediction successful"
     
     class Config:
-        json_schema_extra = {
+        schema_extra = {
             "example": {
                 "age": 25,
                 "confidence": 0.85,
@@ -22,7 +22,7 @@ class ErrorResponse(BaseModel):
     detail: str
     
     class Config:
-        json_schema_extra = {
+        schema_extra = {
             "example": {
                 "error": "Validation Error",
                 "detail": "Invalid image format"

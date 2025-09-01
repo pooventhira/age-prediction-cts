@@ -81,10 +81,20 @@ async def predict_age(
 
 @router.get("/model/info", summary="Get model information")
 async def get_model_info():
-    """Get information about the loaded model."""
-    return {
-        "model_type": "Age Predictor",
+    """Get information about the loaded Keras model."""
+    base_info = {
+        "model_type": "Keras Age Predictor",
         "model_path": settings.MODEL_PATH,
         "max_file_size_mb": settings.MAX_FILE_SIZE // (1024*1024),
-        "supported_formats": ["JPEG", "PNG", "WebP"]
+        "supported_formats": ["JPEG", "PNG", "WebP"],
+        "framework": "TensorFlow/Keras"
     }
+    
+    # Get additional model information from service
+    try:
+        model_info = prediction_service.get_model_info()
+        base_info.update(model_info)
+    except Exception as e:
+        logger.warning(f"Could not get detailed model info: {str(e)}")
+    
+    return base_info
