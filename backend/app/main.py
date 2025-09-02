@@ -2,6 +2,7 @@ from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from app.core.config import settings
 from app.api.prediction import router as prediction_router
+from app.api.auth import router as auth_router  # Import the new auth router
 from app.model.loader import load_model
 
 # Load model on startup
@@ -25,6 +26,7 @@ app.add_middleware(
 
 # Include routers
 app.include_router(prediction_router, prefix="/api/v1")
+app.include_router(auth_router, prefix="/api/v1/auth") # Add the auth router
 
 @app.get("/")
 async def root():

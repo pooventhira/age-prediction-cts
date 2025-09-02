@@ -1,6 +1,5 @@
 from pydantic import BaseSettings
 from typing import List
-import os
 
 class Settings(BaseSettings):
     # Application
@@ -18,6 +17,13 @@ class Settings(BaseSettings):
     # Model
     MODEL_PATH: str = "app/model/age_predictor.h5"
     MAX_FILE_SIZE: int = 10485760  # 10MB
+    
+    # --- New Database and Auth Settings ---
+    MONGODB_URL: str
+    DB_NAME: str = "AgePredictionDB"
+    SECRET_KEY: str
+    JWT_ALGORITHM: str = "HS256"
+    ACCESS_TOKEN_EXPIRE_MINUTES: int = 30
     
     class Config:
         env_file = ".env"

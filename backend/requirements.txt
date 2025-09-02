@@ -6,3 +6,10 @@ tensorflow==2.17.1
 numpy==1.24.3
 pillow==10.0.1
 python-dotenv==1.0.0
+
+# Added for this feature
+pymongo[srv]==4.6.1
+passlib==1.7.4
+bcrypt==3.2.0
+python-jose[cryptography]==3.3.0
+email-validator==2.1.1
