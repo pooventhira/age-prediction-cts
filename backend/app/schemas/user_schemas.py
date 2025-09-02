@@ -1,12 +1,14 @@
-from pydantic import BaseModel, EmailStr
+from pydantic import BaseModel, EmailStr, Field
 from typing import List, Optional
 from datetime import datetime
+from uuid import UUID, uuid4
 
 # --- History ---
 class HistoryItem(BaseModel):
+    id: UUID = Field(default_factory=uuid4)
     image_base64: str
     predicted_age: int
-    created_at: datetime = datetime.now()
+    created_at: datetime = Field(default_factory=datetime.now)
 
 # --- User ---
 class UserBase(BaseModel):
