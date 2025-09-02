@@ -1,7 +1,7 @@
 import React, { useRef, useState } from "react";
 import Webcam from "react-webcam";
 
-//  History Interface
+// History Interface
 interface HistoryItem {
   id: number;
   image: string;
@@ -11,7 +11,7 @@ interface HistoryItem {
 
 const Home: React.FC = () => {
   const [preview, setPreview] = useState<string | null>(null);
-  const [mode, setMode] = useState<"upload" | "webcam" | null>(null);
+  const [mode, setMode] = useState<"upload" | "webcam">("upload"); // default to upload
   const [startWebcam, setStartWebcam] = useState(false);
   const [dragging, setDragging] = useState(false);
   const webcamRef = useRef<Webcam>(null);
@@ -37,14 +37,12 @@ const Home: React.FC = () => {
     const imageSrc = webcamRef.current?.getScreenshot();
     if (imageSrc) {
       setPreview(imageSrc);
-      setMode("upload"); // Switch to Upload section automatically
-      setStartWebcam(false); // Stop webcam
+      setStartWebcam(false); // Stop webcam, but stay in webcam mode
     }
   };
 
   // Predict Age (placeholder for ML model)
   const predictAgeFromModel = async (image: string): Promise<number> => {
-    // Replace this with your ML model call
     return 25; // temporary placeholder
   };
 
@@ -63,22 +61,23 @@ const Home: React.FC = () => {
       predictedAge,
       uploadedAt: new Date().toISOString(),
     };
-    localStorage.setItem("predictionHistory", JSON.stringify([newItem, ...history]));
+    localStorage.setItem(
+      "predictionHistory",
+      JSON.stringify([newItem, ...history])
+    );
 
-    // Clear preview after prediction
     setPreview(null);
     alert(`Predicted Age: ${predictedAge}`);
   };
 
   return (
     <div className="p-6">
-      {/* Mode Selection */}
+      {/* Webcam / Upload Buttons */}
       <div className="flex justify-center gap-6 mb-8">
         <button
           onClick={() => {
             setMode("upload");
             setPreview(null);
-            setStartWebcam(false);
           }}
           className={`px-6 py-2 rounded-lg shadow transition ${
             mode === "upload" ? "bg-teal-600 text-white" : "bg-gray-200"
@@ -86,6 +85,7 @@ const Home: React.FC = () => {
         >
           Upload Image
         </button>
+
         <button
           onClick={() => {
             setMode("webcam");
@@ -101,9 +101,11 @@ const Home: React.FC = () => {
       </div>
 
       {/* Upload Section */}
-      {mode === "upload" && (
+      {mode === "upload" && !preview && (
         <div className="bg-white shadow-lg rounded-2xl p-10 border max-w-3xl mx-auto">
-          <h2 className="text-2xl font-bold mb-6 text-teal-700">Upload an Image</h2>
+          <h2 className="text-2xl font-bold mb-6 text-teal-700">
+            Upload an Image
+          </h2>
           <div
             onDragOver={(e) => {
               e.preventDefault();
@@ -131,15 +133,17 @@ const Home: React.FC = () => {
               Browse Files
             </label>
           </div>
+        </div>
+      )}
 
-          {preview && (
-            <img
-              src={preview}
-              alt="Preview"
-              className="mt-6 rounded-lg w-full max-h-[600px] object-contain border"
-            />
-          )}
-
+      {/* Show Preview in Upload Mode */}
+      {mode === "upload" && preview && (
+        <div className="bg-white shadow-lg rounded-2xl p-10 border max-w-3xl mx-auto">
+          <img
+            src={preview}
+            alt="Preview"
+            className="rounded-lg w-full max-h-[600px] object-contain border"
+          />
           <button
             onClick={handlePredict}
             className="mt-6 w-full bg-teal-600 text-white py-3 rounded-lg text-lg hover:bg-teal-700 transition disabled:opacity-50"
@@ -152,23 +156,32 @@ const Home: React.FC = () => {
 
       {/* Webcam Section */}
       {mode === "webcam" && (
-        <div className="bg-white shadow-lg rounded-2xl p-6 border max-w-3xl mx-auto flex flex-col items-center">
-          <h2 className="text-xl font-bold mb-4 text-teal-700">Capture from Webcam</h2>
-          {!startWebcam ? (
+        <div className="bg-white shadow-lg rounded-2xl p-6 border max-w-3xl mx-auto flex flex-col items-center mt-10">
+          <h2 className="text-xl font-bold mb-4 text-teal-700">
+            Capture from Webcam
+          </h2>
+
+          {!startWebcam && !preview && (
             <button
               onClick={() => setStartWebcam(true)}
               className="bg-teal-600 text-white px-6 py-2 rounded-lg hover:bg-teal-700 transition"
             >
               Start Webcam
             </button>
-          ) : (
+          )}
+
+          {startWebcam && (
             <>
               <div className="w-full h-[500px] flex justify-center items-center bg-gray-100 rounded-lg overflow-hidden">
                 <Webcam
                   ref={webcamRef}
                   screenshotFormat="image/png"
                   className="w-full h-full object-cover"
-                  videoConstraints={{ width: 1280, height: 720, facingMode: "user" }}
+                  videoConstraints={{
+                    width: 1280,
+                    height: 720,
+                    facingMode: "user",
+                  }}
                 />
               </div>
               <div className="flex gap-4 mt-4">
@@ -178,22 +191,24 @@ const Home: React.FC = () => {
                 >
                   Capture
                 </button>
-                <button
-                  onClick={handlePredict}
-                  className="bg-teal-600 text-white px-4 py-2 rounded-lg hover:bg-teal-700 transition disabled:opacity-50"
-                  disabled={!preview}
-                >
-                  Predict
-                </button>
               </div>
             </>
           )}
+
           {preview && (
-            <img
-              src={preview}
-              alt="Captured"
-              className="mt-6 rounded-lg w-full max-h-96 object-contain border"
-            />
+            <>
+              <img
+                src={preview}
+                alt="Captured"
+                className="mt-6 rounded-lg w-full max-h-96 object-contain border"
+              />
+              <button
+                onClick={handlePredict}
+                className="mt-4 bg-teal-600 text-white px-6 py-2 rounded-lg hover:bg-teal-700 transition disabled:opacity-50"
+              >
+                Predict Age
+              </button>
+            </>
           )}
         </div>
       )}

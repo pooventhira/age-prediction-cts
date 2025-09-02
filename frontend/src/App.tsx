@@ -11,22 +11,41 @@ const App: React.FC = () => {
     <Router>
       <div className="min-h-screen bg-gray-50">
         {/* Navbar */}
-        <nav className="bg-teal-600 text-white px-6 py-4 flex justify-between items-center shadow-md">
-          <h1 className="text-xl font-bold tracking-wide">Age Prediction</h1>
+        <nav className="bg-teal-600 text-white px-6 py-4 shadow-md">
+          <div className="max-w-7xl mx-auto flex items-center relative">
+            {/* Left: Logo */}
+            <div>
+              <h1 className="text-xl font-bold tracking-wide">Age Prediction</h1>
+            </div>
 
-          <div className="flex items-center gap-6">
-            <Link to="/capture" className="hover:text-gray-200 transition">Capture</Link>
-            <Link to="/history" className="hover:text-gray-200 transition">History</Link>
-
-            {!isLoggedIn ? (
-              <Link to="/login" className="bg-white text-teal-600 px-4 py-2 rounded-lg shadow-md font-semibold hover:bg-gray-100 transition">
-                Login
+            {/* Center: History Button */}
+            <div className="absolute left-1/2 transform -translate-x-1/2">
+              <Link
+                to="/history"
+                className="hover:text-gray-200 transition font-medium"
+              >
+                History
               </Link>
-            ) : (
-              <button onClick={() => setIsLoggedIn(false)} className="bg-white text-teal-600 px-4 py-2 rounded-lg shadow-md font-semibold hover:bg-gray-100 transition">
-                Logout
-              </button>
-            )}
+            </div>
+
+            {/* Right: Login/Logout */}
+            <div className="ml-auto">
+              {!isLoggedIn ? (
+                <Link
+                  to="/login"
+                  className="bg-white text-teal-600 px-4 py-2 rounded-lg shadow-md font-semibold hover:bg-gray-100 transition"
+                >
+                  Login
+                </Link>
+              ) : (
+                <button
+                  onClick={() => setIsLoggedIn(false)}
+                  className="bg-white text-teal-600 px-4 py-2 rounded-lg shadow-md font-semibold hover:bg-gray-100 transition"
+                >
+                  Logout
+                </button>
+              )}
+            </div>
           </div>
         </nav>
 
