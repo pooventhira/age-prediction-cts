@@ -15,8 +15,8 @@ const App: React.FC = () => {
           <h1 className="text-xl font-bold tracking-wide">Age Prediction</h1>
 
           <div className="flex items-center gap-6">
-            <Link to="/history" className="hover:text-gray-200 transition">History</Link>
             <Link to="/capture" className="hover:text-gray-200 transition">Capture</Link>
+            <Link to="/history" className="hover:text-gray-200 transition">History</Link>
 
             {!isLoggedIn ? (
               <Link to="/login" className="bg-white text-teal-600 px-4 py-2 rounded-lg shadow-md font-semibold hover:bg-gray-100 transition">
